@@ -1,35 +1,34 @@
-// JavaScript source code
-function clickLinks() {
+(function() {
+  function clickLinks() {
+    const buttons = document.querySelectorAll(".coupon-action.button-blue.sc-send-to-card-action");
+    alert("Pending Coupons " + buttons.length);
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].click();
+    }
+  }
 
-	var x = document.getElementsByClassName("action-items red");
-	var i;
-	alert("Pending Coupons " + x.length);
-	for (i = 0; i < x.length; i++) {
+  let previousScrollHeight = 0;
+  let scrollAttempts = 0;
+  const maxScrollAttempts = 5;
+  const scrollInterval = 50;
+  const scrollAmount = 10000;
 
-		x[i].click();
+  const scroller = setInterval(function () {
+    const body = document.body;
+    const html = document.documentElement;
+    const currentScrollHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 
+    window.scrollBy(0, scrollAmount);
 
-	}
-};
-var xx = 0;
-var cnt = 0;
-scroller2 = setInterval(function () {
-	var body = document.body, html = document.documentElement;
-	var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-	scrollTo(scrollX, scrollY + 10000);
-
-	if (xx === body.scrollHeight) {
-		//alert(cnt);
-		cnt++;
-		if (cnt === 5) {
-			clearInterval(scroller2);
-			//alert(height + 'I' + html.scrollHeight + 'I' + body.scrollHeight);
-			clickLinks();
-		};
-
-	}
-	else {
-		cnt = 0;
-		xx = body.scrollHeight
-	}
-}, 50);
+    if (previousScrollHeight === body.scrollHeight) {
+      scrollAttempts++;
+      if (scrollAttempts === maxScrollAttempts) {
+        clearInterval(scroller);
+        clickLinks();
+      }
+    } else {
+      scrollAttempts = 0;
+      previousScrollHeight = body.scrollHeight;
+    }
+  }, scrollInterval);
+})();

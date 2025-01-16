@@ -1,5 +1,5 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 
 	"name": "CVS Coupon Clipper",
 	"description": "Automatically Clip Coupons",
@@ -13,10 +13,9 @@
 		"128": "img/favicon_128.png"
 	},
 	"background": {
-		"scripts": [ "js/background.js" ],
-		"persistent": true
+		"service_worker": "js/background.js"
 	},
-	"page_action": {
+	"action": {
 		"default_popup": "popup.html",
 		"default_icon": {
 			"16": "img/favicon_16.png",
@@ -28,6 +27,9 @@
 	},
 	"permissions": [
 		"declarativeContent",
+		"scripting"
+	],
+	"host_permissions": [
 		"*://*.cvs.com/"
 	]
 }

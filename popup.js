@@ -1,10 +1,8 @@
-
-clipCoupons.onclick = function(element) {
-  let color = element.target.value;
+document.getElementById('clipCoupons').onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-		{
-			file: 'js/CVSCLICKER.js' });
+    chrome.scripting.executeScript({
+      target: {tabId: tabs[0].id},
+      files: ['js/CVSCLICKER.js']
+    });
   });
 };
